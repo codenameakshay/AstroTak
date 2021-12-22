@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                       textCapitalization: TextCapitalization.words,
                     )
                   : Text(
-                      'Product IO',
+                      'AstroTak',
                       style: TextStyle(
                         color: darkAppBarContents
                             ? Theme.of(context)
@@ -202,14 +202,14 @@ class _HomePageState extends State<HomePage> {
                   Theme.of(context).bottomNavigationBarTheme.backgroundColor,
               items: const [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.image_outlined),
-                  activeIcon: Icon(Icons.image),
-                  label: "Products",
+                  icon: Icon(Icons.home_outlined),
+                  activeIcon: Icon(Icons.home),
+                  label: "Panchang",
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.image_outlined),
-                  activeIcon: Icon(Icons.image),
-                  label: "Inventory",
+                  icon: Icon(Icons.chat_bubble_outline),
+                  activeIcon: Icon(Icons.chat_bubble),
+                  label: "Talk to Astro",
                 ),
               ],
             ),
