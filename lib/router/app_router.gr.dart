@@ -72,17 +72,19 @@ class _$AppRouter extends RootStackRouter {
       ];
 }
 
-/// generated route for [LoadingPage]
+/// generated route for
+/// [LoadingPage]
 class LoadingRoute extends PageRouteInfo<void> {
-  const LoadingRoute() : super(name, path: '/');
+  const LoadingRoute() : super(LoadingRoute.name, path: '/');
 
   static const String name = 'LoadingRoute';
 }
 
-/// generated route for [NewProductPage]
+/// generated route for
+/// [NewProductPage]
 class NewProductRoute extends PageRouteInfo<NewProductRouteArgs> {
   NewProductRoute({Key? key, Product? product, bool edit = false})
-      : super(name,
+      : super(NewProductRoute.name,
             path: '/',
             args: NewProductRouteArgs(key: key, product: product, edit: edit));
 
@@ -104,18 +106,20 @@ class NewProductRouteArgs {
   }
 }
 
-/// generated route for [HomePage]
+/// generated route for
+/// [HomePage]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
-      : super(name, path: '/home-page', initialChildren: children);
+      : super(HomeRoute.name, path: '/home-page', initialChildren: children);
 
   static const String name = 'HomeRoute';
 }
 
-/// generated route for [ProductsPage]
+/// generated route for
+/// [ProductsPage]
 class ProductsRoute extends PageRouteInfo<ProductsRouteArgs> {
   ProductsRoute({Key? key, ScrollController? controller})
-      : super(name,
+      : super(ProductsRoute.name,
             path: '',
             args: ProductsRouteArgs(key: key, controller: controller));
 
@@ -135,10 +139,11 @@ class ProductsRouteArgs {
   }
 }
 
-/// generated route for [InventoryPage]
+/// generated route for
+/// [InventoryPage]
 class InventoryRoute extends PageRouteInfo<InventoryRouteArgs> {
   InventoryRoute({Key? key, ScrollController? controller})
-      : super(name,
+      : super(InventoryRoute.name,
             path: 'inventory-page',
             args: InventoryRouteArgs(key: key, controller: controller));
 
