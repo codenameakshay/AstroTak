@@ -21,8 +21,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final ScrollController controller = ScrollController();
   FilterRange _filterRange = FilterRange.all;
-  DateTime _dateTime = DateTime.now();
-  Place _place =
+  final DateTime _dateTime = DateTime.now();
+  final Place _place =
       Place(placeName: "Delhi, India", placeId: "ChIJL_P_CXMEDTkRw0ZdG-0GVvw");
   bool isSearch = false;
   final TextEditingController _searchController = TextEditingController();
@@ -90,19 +90,24 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
               actions: [
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isSearch = !isSearch;
-                    });
-                  },
-                  icon: Icon(isSearch ? Icons.close : Icons.search),
-                  color: darkAppBarContents
-                      ? Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .unselectedItemColor
-                      : Theme.of(context).appBarTheme.titleTextStyle?.color,
-                ),
+                tabsRouter.activeIndex == 1
+                    ? IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isSearch = !isSearch;
+                          });
+                        },
+                        icon: Icon(isSearch ? Icons.close : Icons.search),
+                        color: darkAppBarContents
+                            ? Theme.of(context)
+                                .bottomNavigationBarTheme
+                                .unselectedItemColor
+                            : Theme.of(context)
+                                .appBarTheme
+                                .titleTextStyle
+                                ?.color,
+                      )
+                    : Container(),
                 tabsRouter.activeIndex == 1
                     ? PopupMenuButton<FilterRange>(
                         icon: Icon(

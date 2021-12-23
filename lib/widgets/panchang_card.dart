@@ -1,5 +1,4 @@
 import 'package:astrotak/model/panchang_model.dart';
-import 'package:astrotak/services/logger.dart';
 import 'package:flutter/material.dart';
 
 class PanchangCard extends StatefulWidget {
@@ -81,35 +80,39 @@ class _PanchangCardState extends State<PanchangCard> {
               ),
               SubTitleWidget(
                 title: "Nakshatra Number:",
-                value:
-                    widget.panchang?.nakshatra?.details?["nak_number"].toString() ??
-                        "",
+                value: widget.panchang?.nakshatra?.details?["nak_number"]
+                        .toString() ??
+                    "",
               ),
               SubTitleWidget(
                 title: "Nakshatra Name:",
-                value:
-                    widget.panchang?.nakshatra?.details?["nak_name"].toString() ??
-                        "",
+                value: widget.panchang?.nakshatra?.details?["nak_name"]
+                        .toString() ??
+                    "",
               ),
               SubTitleWidget(
                 title: "Special:",
-                value: widget.panchang?.nakshatra?.details?["special"].toString() ??
+                value: widget.panchang?.nakshatra?.details?["special"]
+                        .toString() ??
                     "",
               ),
               SubTitleWidget(
                 title: "Ruler:",
                 value:
-                    widget.panchang?.nakshatra?.details?["ruler"].toString() ?? "",
+                    widget.panchang?.nakshatra?.details?["ruler"].toString() ??
+                        "",
               ),
               SubTitleWidget(
                 title: "Summary:",
-                value: widget.panchang?.nakshatra?.details?["summary"].toString() ??
+                value: widget.panchang?.nakshatra?.details?["summary"]
+                        .toString() ??
                     "",
               ),
               SubTitleWidget(
                 title: "Deity:",
                 value:
-                    widget.panchang?.nakshatra?.details?["deity"].toString() ?? "",
+                    widget.panchang?.nakshatra?.details?["deity"].toString() ??
+                        "",
               ),
               const Divider(),
               const TitleWidget(
@@ -125,18 +128,17 @@ class _PanchangCardState extends State<PanchangCard> {
               SubTitleWidget(
                 title: "Yog Name:",
                 value:
-                    widget.panchang?.yog?.details?["yog_name"].toString() ??
-                        "",
+                    widget.panchang?.yog?.details?["yog_name"].toString() ?? "",
               ),
               SubTitleWidget(
                 title: "Special:",
-                value: widget.panchang?.yog?.details?["special"].toString() ??
-                    "",
+                value:
+                    widget.panchang?.yog?.details?["special"].toString() ?? "",
               ),
               SubTitleWidget(
                 title: "Meaning:",
-                value: widget.panchang?.yog?.details?["meaning"].toString() ??
-                    "",
+                value:
+                    widget.panchang?.yog?.details?["meaning"].toString() ?? "",
               ),
               const Divider(),
               const TitleWidget(
@@ -172,15 +174,11 @@ class _PanchangCardState extends State<PanchangCard> {
               ),
               SubTitleWidget(
                 title: "Purnimanta:",
-                value: widget.panchang?.hinduMaah?.purnimanta
-                        .toString() ??
-                    "",
+                value: widget.panchang?.hinduMaah?.purnimanta.toString() ?? "",
               ),
               SubTitleWidget(
                 title: "Amanta:",
-                value:
-                    widget.panchang?.hinduMaah?.amanta.toString() ??
-                        "",
+                value: widget.panchang?.hinduMaah?.amanta.toString() ?? "",
               ),
             ],
           ),
