@@ -1,4 +1,5 @@
 import 'package:astrotak/notifiers/panchang_notifier.dart';
+import 'package:astrotak/widgets/location_card.dart';
 import 'package:astrotak/widgets/panchang_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +12,13 @@ class PanchangPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final PanchangNotifier panchangNotifier =
         Provider.of<PanchangNotifier>(context);
-    return PanchangCard(
-      panchang: panchangNotifier.panchang,
+    return Column(
+      children: [
+        const LocationCard(),
+        PanchangCard(
+          panchang: panchangNotifier.panchang,
+        ),
+      ],
     );
   }
 }
