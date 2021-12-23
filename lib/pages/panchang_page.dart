@@ -12,7 +12,7 @@ class PanchangPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final PanchangNotifier panchangNotifier =
         Provider.of<PanchangNotifier>(context);
-    return Column(
+    return ListView(
       children: [
         const LocationCard(),
         PanchangCard(

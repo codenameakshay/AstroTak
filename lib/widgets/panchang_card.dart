@@ -15,203 +15,261 @@ class PanchangCard extends StatefulWidget {
 }
 
 class _PanchangCardState extends State<PanchangCard> {
-  bool isOpen = false;
-
   @override
   Widget build(BuildContext context) {
-    logger.d(widget.panchang.toString());
     return Card(
       margin: const EdgeInsets.all(16),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        height: isOpen ? 250 : 150,
-        child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () => setState(() => isOpen = !isOpen),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "${widget.panchang?.sunrise} (${widget.panchang?.day} ${widget.panchang?.day})",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context).textTheme.headline6,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 0,
-                                ),
-                                child: Text(
-                                  "${widget.panchang?.day}",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: true,
-                                  style: Theme.of(context).textTheme.overline,
-                                ),
-                              ),
-                              const Spacer(),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      "₹${widget.panchang?.day}",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.bodyText1,
-                                    ),
-                                    const Spacer(),
-                                    AnimatedRotation(
-                                      child: const Icon(
-                                          Icons.keyboard_arrow_down_rounded),
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      turns: isOpen ? -0.5 : 0,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              TitleWidget(
+                title: "Sunrise:",
+                value: widget.panchang?.sunrise.toString() ?? "",
               ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                height: isOpen ? 100 : 0,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        color: Theme.of(context).primaryColor,
-                        child: SizedBox(
-                          width: 150 - 16 - 8,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Stock:",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.bodyText1,
-                                    ),
-                                    Text(
-                                      "${widget.panchang?.day} ${widget.panchang?.day}",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.bodyText1,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              IconButton(
-                                  onPressed: () async {
-                                    // logger.d('Update Stock');
-                                    // await Future.delayed(
-                                    //         const Duration(seconds: 0))
-                                    //     .then(
-                                    //   (value) => showModalBottomSheet(
-                                    //     context: context,
-                                    //     isScrollControlled: true,
-                                    //     backgroundColor: Colors.transparent,
-                                    //     barrierColor: Colors.transparent,
-                                    //     elevation: 0,
-                                    //     enableDrag: true,
-                                    //     routeSettings: const RouteSettings(
-                                    //         name: '/update-stock'),
-                                    //     builder: (_) => UpdateStockSheet(
-                                    //       panchang: widget.panchang,
-                                    //     ),
-                                    //   ),
-                                    // );
-                                  },
-                                  icon: const Icon(Icons.edit))
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Card(
-                          color: Theme.of(context).backgroundColor,
-                          child: SizedBox(
-                            height: 100 - 16 - 8,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.edit)),
-                                Text(
-                                  "Edit Product",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: true,
-                                  style: Theme.of(context).textTheme.overline,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Card(
-                        color: Theme.of(context).backgroundColor,
-                        child: SizedBox(
-                          width: 100 - 16 - 8,
-                          height: 100 - 16 - 8,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Is in Stock",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                softWrap: true,
-                                style: Theme.of(context).textTheme.overline,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              TitleWidget(
+                title: "Sunset:",
+                value: widget.panchang?.sunset.toString() ?? "",
+              ),
+              TitleWidget(
+                title: "Moonrise:",
+                value: widget.panchang?.moonrise.toString() ?? "",
+              ),
+              TitleWidget(
+                title: "Moonset:",
+                value: widget.panchang?.moonset.toString() ?? "",
+              ),
+              const Divider(),
+              const TitleWidget(
+                title: "Tithi:",
+                value: "",
+              ),
+              SubTitleWidget(
+                title: "Tithi Number:",
+                value: widget.panchang?.tithi?.details?["tithi_number"]
+                        .toString() ??
+                    "",
+              ),
+              SubTitleWidget(
+                title: "Tithi Name:",
+                value:
+                    widget.panchang?.tithi?.details?["tithi_name"].toString() ??
+                        "",
+              ),
+              SubTitleWidget(
+                title: "Special:",
+                value: widget.panchang?.tithi?.details?["special"].toString() ??
+                    "",
+              ),
+              SubTitleWidget(
+                title: "Summary:",
+                value: widget.panchang?.tithi?.details?["summary"].toString() ??
+                    "",
+              ),
+              SubTitleWidget(
+                title: "Deity:",
+                value:
+                    widget.panchang?.tithi?.details?["deity"].toString() ?? "",
+              ),
+              const Divider(),
+              const TitleWidget(
+                title: "Nakshatra:",
+                value: "",
+              ),
+              SubTitleWidget(
+                title: "Nakshatra Number:",
+                value:
+                    widget.panchang?.nakshatra?.details?["nak_number"].toString() ??
+                        "",
+              ),
+              SubTitleWidget(
+                title: "Nakshatra Name:",
+                value:
+                    widget.panchang?.nakshatra?.details?["nak_name"].toString() ??
+                        "",
+              ),
+              SubTitleWidget(
+                title: "Special:",
+                value: widget.panchang?.nakshatra?.details?["special"].toString() ??
+                    "",
+              ),
+              SubTitleWidget(
+                title: "Ruler:",
+                value:
+                    widget.panchang?.nakshatra?.details?["ruler"].toString() ?? "",
+              ),
+              SubTitleWidget(
+                title: "Summary:",
+                value: widget.panchang?.nakshatra?.details?["summary"].toString() ??
+                    "",
+              ),
+              SubTitleWidget(
+                title: "Deity:",
+                value:
+                    widget.panchang?.nakshatra?.details?["deity"].toString() ?? "",
+              ),
+              const Divider(),
+              const TitleWidget(
+                title: "Yog:",
+                value: "",
+              ),
+              SubTitleWidget(
+                title: "Yog Number:",
+                value:
+                    widget.panchang?.yog?.details?["yog_number"].toString() ??
+                        "",
+              ),
+              SubTitleWidget(
+                title: "Yog Name:",
+                value:
+                    widget.panchang?.yog?.details?["yog_name"].toString() ??
+                        "",
+              ),
+              SubTitleWidget(
+                title: "Special:",
+                value: widget.panchang?.yog?.details?["special"].toString() ??
+                    "",
+              ),
+              SubTitleWidget(
+                title: "Meaning:",
+                value: widget.panchang?.yog?.details?["meaning"].toString() ??
+                    "",
+              ),
+              const Divider(),
+              const TitleWidget(
+                title: "Karan:",
+                value: "",
+              ),
+              SubTitleWidget(
+                title: "Tithi Number:",
+                value: widget.panchang?.karan?.details?["karan_number"]
+                        .toString() ??
+                    "",
+              ),
+              SubTitleWidget(
+                title: "Tithi Name:",
+                value:
+                    widget.panchang?.karan?.details?["karan_name"].toString() ??
+                        "",
+              ),
+              SubTitleWidget(
+                title: "Special:",
+                value: widget.panchang?.karan?.details?["special"].toString() ??
+                    "",
+              ),
+              SubTitleWidget(
+                title: "Deity:",
+                value:
+                    widget.panchang?.karan?.details?["deity"].toString() ?? "",
+              ),
+              const Divider(),
+              const TitleWidget(
+                title: "Hindu Maah:",
+                value: "",
+              ),
+              SubTitleWidget(
+                title: "Purnimanta:",
+                value: widget.panchang?.hinduMaah?.purnimanta
+                        .toString() ??
+                    "",
+              ),
+              SubTitleWidget(
+                title: "Amanta:",
+                value:
+                    widget.panchang?.hinduMaah?.amanta.toString() ??
+                        "",
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class TitleWidget extends StatelessWidget {
+  const TitleWidget({
+    Key? key,
+    required this.title,
+    required this.value,
+  }) : super(key: key);
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                ?.copyWith(fontWeight: FontWeight.bold),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            value,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.headline6,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SubTitleWidget extends StatelessWidget {
+  const SubTitleWidget({
+    Key? key,
+    required this.title,
+    required this.value,
+  }) : super(key: key);
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2
+                ?.copyWith(fontWeight: FontWeight.bold),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              value,
+              maxLines: 5,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyText2,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
