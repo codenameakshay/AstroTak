@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:astrotak/model/product_model.dart';
-import 'package:astrotak/notifiers/product_notifier.dart';
 import 'package:astrotak/router/app_router.dart';
 import 'package:astrotak/services/locator.dart';
 import 'package:astrotak/widgets/bottom_sheet.dart';
@@ -149,7 +148,7 @@ class _UpdateStockSheetState extends State<UpdateStockSheet> {
                     stockUnitType: _quantityType,
                     isAvailable: widget.product.isAvailable,
                   );
-                  locator<ProductNotifier>().updateProduct(_finalProduct);
+                  // locator<ProductNotifier>().updateProduct(_finalProduct);
                   if (_finalProduct.stockUnits != widget.product.stockUnits ||
                       _finalProduct.stockUnitType !=
                           widget.product.stockUnitType) {

@@ -1,11 +1,11 @@
 import 'package:astrotak/notifiers/astrologer_notifier.dart';
+import 'package:astrotak/notifiers/panchang_notifier.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:astrotak/constants/app_color.dart';
 import 'package:astrotak/constants/app_data.dart';
 import 'package:astrotak/controller/theme_controller.dart';
-import 'package:astrotak/notifiers/product_notifier.dart';
 import 'package:astrotak/router/app_router.dart';
 import 'package:astrotak/router/route_observer.dart';
 import 'package:astrotak/services/locator.dart';
@@ -21,8 +21,8 @@ void main() async {
       ChangeNotifierProvider(
         create: (_) => themeController,
       ),
-      ChangeNotifierProvider<ProductNotifier>(
-          create: (_) => locator<ProductNotifier>()),
+      ChangeNotifierProvider<PanchangNotifier>(
+          create: (_) => locator<PanchangNotifier>()),
       ChangeNotifierProvider<AstrologerNotifier>(
           create: (_) => locator<AstrologerNotifier>()),
     ], child: const MyApp()),

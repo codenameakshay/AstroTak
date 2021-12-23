@@ -1,7 +1,8 @@
+import 'package:astrotak/model/place_model.dart';
 import 'package:astrotak/notifiers/astrologer_notifier.dart';
+import 'package:astrotak/notifiers/panchang_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:astrotak/model/filter_enum.dart';
-import 'package:astrotak/notifiers/product_notifier.dart';
 import 'package:astrotak/router/app_router.dart';
 import 'package:astrotak/services/locator.dart';
 
@@ -17,7 +18,11 @@ class _LoadingPageState extends State<LoadingPage> {
   void initState() {
     super.initState();
     Future.wait([
-      locator<ProductNotifier>().fetchProducts(""),
+      locator<PanchangNotifier>().fetchPanchang(
+          DateTime.now(),
+          Place(
+              placeName: "Delhi, India",
+              placeId: "ChIJL_P_CXMEDTkRw0ZdG-0GVvw")),
       locator<AstrologerNotifier>().fetchAstrologers(
         "",
         FilterRange.all,

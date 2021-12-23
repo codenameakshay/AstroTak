@@ -1,10 +1,11 @@
+import 'package:astrotak/model/place_model.dart';
 import 'package:astrotak/notifiers/astrologer_notifier.dart';
+import 'package:astrotak/notifiers/panchang_notifier.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:astrotak/controller/theme_controller.dart';
 import 'package:astrotak/model/filter_enum.dart';
-import 'package:astrotak/notifiers/product_notifier.dart';
 import 'package:astrotak/router/app_router.dart';
 import 'package:astrotak/services/locator.dart';
 import 'package:astrotak/services/logger.dart';
@@ -20,6 +21,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final ScrollController controller = ScrollController();
   FilterRange _filterRange = FilterRange.all;
+  DateTime _dateTime = DateTime.now();
+  Place _place =
+      Place(placeName: "Delhi, India", placeId: "ChIJL_P_CXMEDTkRw0ZdG-0GVvw");
   bool isSearch = false;
   final TextEditingController _searchController = TextEditingController();
 
@@ -35,7 +39,7 @@ class _HomePageState extends State<HomePage> {
         Theme.of(context).scaffoldBackgroundColor.computeLuminance() > 0.5;
     return AutoTabsRouter(
         routes: [
-          ProductsRoute(controller: controller),
+          PanchangRoute(controller: controller),
           AstroRoute(controller: controller),
         ],
         homeIndex: 0,
@@ -52,7 +56,8 @@ class _HomePageState extends State<HomePage> {
                       autofocus: true,
                       onChanged: (text) {
                         if (tabsRouter.activeIndex == 0) {
-                          locator<ProductNotifier>().fetchProducts(text);
+                          locator<PanchangNotifier>()
+                              .fetchPanchang(_dateTime, _place);
                         } else {
                           locator<AstrologerNotifier>()
                               .fetchAstrologers(text, _filterRange);
@@ -166,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                   _filterRange = FilterRange.all;
                 });
                 if (value == 0) {
-                  locator<ProductNotifier>().fetchProducts('');
+                  locator<PanchangNotifier>().fetchPanchang(_dateTime, _place);
                 } else {
                   locator<AstrologerNotifier>()
                       .fetchAstrologers('', _filterRange);
@@ -191,14 +196,6 @@ class _HomePageState extends State<HomePage> {
               opacity: animation,
               child: child,
             ),
-            floatingActionButton: tabsRouter.activeIndex == 0
-                ? FloatingActionButton(
-                    onPressed: () {
-                      locator<AppRouter>().navigate(NewProductRoute());
-                    },
-                    child: const Icon(Icons.add),
-                  )
-                : null,
           );
         });
   }

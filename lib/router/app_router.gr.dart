@@ -23,17 +23,6 @@ class _$AppRouter extends RootStackRouter {
           opaque: true,
           barrierDismissible: false);
     },
-    NewProductRoute.name: (routeData) {
-      final args = routeData.argsAs<NewProductRouteArgs>(
-          orElse: () => const NewProductRouteArgs());
-      return CustomPage<dynamic>(
-          routeData: routeData,
-          child: NewProductPage(
-              key: args.key, product: args.product, edit: args.edit),
-          customRouteBuilder: slideTransitionRouteBuilder,
-          opaque: true,
-          barrierDismissible: false);
-    },
     HomeRoute.name: (routeData) {
       return CustomPage<dynamic>(
           routeData: routeData,
@@ -42,12 +31,12 @@ class _$AppRouter extends RootStackRouter {
           opaque: true,
           barrierDismissible: false);
     },
-    ProductsRoute.name: (routeData) {
-      final args = routeData.argsAs<ProductsRouteArgs>(
-          orElse: () => const ProductsRouteArgs());
+    PanchangRoute.name: (routeData) {
+      final args = routeData.argsAs<PanchangRouteArgs>(
+          orElse: () => const PanchangRouteArgs());
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: ProductsPage(key: args.key, controller: args.controller));
+          child: PanchangPage(key: args.key, controller: args.controller));
     },
     AstroRoute.name: (routeData) {
       final args = routeData.argsAs<AstroRouteArgs>(
@@ -63,9 +52,8 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig('/home-page#redirect',
             path: '/home-page', redirectTo: '/', fullMatch: true),
         RouteConfig(LoadingRoute.name, path: '/'),
-        RouteConfig(NewProductRoute.name, path: '/'),
         RouteConfig(HomeRoute.name, path: '/home-page', children: [
-          RouteConfig(ProductsRoute.name, path: '', parent: HomeRoute.name),
+          RouteConfig(PanchangRoute.name, path: '', parent: HomeRoute.name),
           RouteConfig(AstroRoute.name,
               path: 'astro-page', parent: HomeRoute.name)
         ])
@@ -81,32 +69,6 @@ class LoadingRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [NewProductPage]
-class NewProductRoute extends PageRouteInfo<NewProductRouteArgs> {
-  NewProductRoute({Key? key, Product? product, bool edit = false})
-      : super(NewProductRoute.name,
-            path: '/',
-            args: NewProductRouteArgs(key: key, product: product, edit: edit));
-
-  static const String name = 'NewProductRoute';
-}
-
-class NewProductRouteArgs {
-  const NewProductRouteArgs({this.key, this.product, this.edit = false});
-
-  final Key? key;
-
-  final Product? product;
-
-  final bool edit;
-
-  @override
-  String toString() {
-    return 'NewProductRouteArgs{key: $key, product: $product, edit: $edit}';
-  }
-}
-
-/// generated route for
 /// [HomePage]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
@@ -116,18 +78,18 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [ProductsPage]
-class ProductsRoute extends PageRouteInfo<ProductsRouteArgs> {
-  ProductsRoute({Key? key, ScrollController? controller})
-      : super(ProductsRoute.name,
+/// [PanchangPage]
+class PanchangRoute extends PageRouteInfo<PanchangRouteArgs> {
+  PanchangRoute({Key? key, ScrollController? controller})
+      : super(PanchangRoute.name,
             path: '',
-            args: ProductsRouteArgs(key: key, controller: controller));
+            args: PanchangRouteArgs(key: key, controller: controller));
 
-  static const String name = 'ProductsRoute';
+  static const String name = 'PanchangRoute';
 }
 
-class ProductsRouteArgs {
-  const ProductsRouteArgs({this.key, this.controller});
+class PanchangRouteArgs {
+  const PanchangRouteArgs({this.key, this.controller});
 
   final Key? key;
 
@@ -135,7 +97,7 @@ class ProductsRouteArgs {
 
   @override
   String toString() {
-    return 'ProductsRouteArgs{key: $key, controller: $controller}';
+    return 'PanchangRouteArgs{key: $key, controller: $controller}';
   }
 }
 
