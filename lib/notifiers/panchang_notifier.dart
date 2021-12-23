@@ -13,6 +13,10 @@ class PanchangNotifier extends ChangeNotifier {
       logger.v("product state updated to $event");
       notifyListeners();
     });
+    _panchangService.locationStateStream.listen((event) {
+      logger.v("location state updated to $event");
+      notifyListeners();
+    });
   }
 
   Stream<Panchang> get panchangStream => _panchangService.panchangStream;
@@ -23,7 +27,19 @@ class PanchangNotifier extends ChangeNotifier {
   PanchangState? get panchangState =>
       _panchangService.panchangStateStream.valueOrNull;
 
+  Stream<List<Place>> get placesStream => _panchangService.locationStream;
+  List<Place>? get places => _panchangService.locationStream.valueOrNull;
+
+  Stream<LocationState> get placeStateStream =>
+      _panchangService.locationStateStream;
+  LocationState? get locationState =>
+      _panchangService.locationStateStream.valueOrNull;
+
   Future<void> fetchPanchang(DateTime dateTime, Place place) async {
     await _panchangService.fetchPanchang(dateTime, place);
+  }
+
+  Future<void> fetchLocation(String query) async {
+    await _panchangService.fetchLocation(query);
   }
 }
