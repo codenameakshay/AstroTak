@@ -1,4 +1,5 @@
 import 'package:astrotak/model/astrologer_model.dart';
+import 'package:astrotak/model/json_request_model.dart';
 import 'package:astrotak/model/panchang_model.dart';
 import 'package:astrotak/model/place_model.dart';
 import 'package:astrotak/services/logger.dart';
@@ -16,7 +17,9 @@ class DioClient {
 
       logger.d('User Info: ${astroData.data}');
 
-      astrologers = astroData.data.map<Astrologer>((astro) {
+      final jsonReq = JSONRequest.fromJson(astroData.data);
+
+      astrologers = jsonReq.data.map<Astrologer>((astro) {
         return Astrologer.fromJson(astro);
       }).toList();
     } on DioError catch (e) {
@@ -44,7 +47,9 @@ class DioClient {
 
       logger.d('User Info: ${placeData.data}');
 
-      places = placeData.data.map<Place>((astro) {
+      final jsonReq = JSONRequest.fromJson(placeData.data);
+
+      places = jsonReq.data.map<Place>((astro) {
         return Place.fromJson(astro);
       }).toList();
     } on DioError catch (e) {
@@ -80,8 +85,9 @@ class DioClient {
       );
 
       logger.d('Panchang created: ${response.data}');
+      final jsonReq = JSONRequest.fromJson(response.data);
 
-      retrievedPanchang = Panchang.fromJson(response.data);
+      retrievedPanchang = Panchang.fromJson(jsonReq.data);
     } catch (e) {
       logger.e('Error creating panchang: $e');
     }

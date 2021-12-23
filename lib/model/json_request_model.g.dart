@@ -12,7 +12,7 @@ JSONRequest _$JSONRequestFromJson(Map<String, dynamic> json) => JSONRequest(
       success: json['success'] as bool,
       message: json['message'] as String,
       apiName: json['apiName'] as String,
-      data: json['data'] as Map<String, dynamic>,
+      data: json['data'],
     );
 
 Map<String, dynamic> _$JSONRequestToJson(JSONRequest instance) =>

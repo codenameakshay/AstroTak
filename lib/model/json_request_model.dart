@@ -11,7 +11,7 @@ class JSONRequest {
   bool success;
   String message;
   String apiName;
-  Map<String, dynamic> data;
+  dynamic data;
 
   JSONRequest({
     required this.httpStatus,

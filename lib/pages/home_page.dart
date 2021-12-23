@@ -1,10 +1,10 @@
+import 'package:astrotak/notifiers/astrologer_notifier.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:astrotak/controller/theme_controller.dart';
 import 'package:astrotak/model/filter_enum.dart';
 import 'package:astrotak/notifiers/product_notifier.dart';
-import 'package:astrotak/notifiers/transaction_notifier.dart';
 import 'package:astrotak/router/app_router.dart';
 import 'package:astrotak/services/locator.dart';
 import 'package:astrotak/services/logger.dart';
@@ -20,8 +20,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final ScrollController controller = ScrollController();
   FilterRange _filterRange = FilterRange.all;
-  DateTime _filterStart = DateTime.now();
-  DateTime _filterEnd = DateTime.now();
   bool isSearch = false;
   final TextEditingController _searchController = TextEditingController();
 
@@ -38,7 +36,7 @@ class _HomePageState extends State<HomePage> {
     return AutoTabsRouter(
         routes: [
           ProductsRoute(controller: controller),
-          InventoryRoute(controller: controller),
+          AstroRoute(controller: controller),
         ],
         homeIndex: 0,
         builder: (context, child, animation) {
@@ -56,8 +54,8 @@ class _HomePageState extends State<HomePage> {
                         if (tabsRouter.activeIndex == 0) {
                           locator<ProductNotifier>().fetchProducts(text);
                         } else {
-                          locator<TransactionNotifier>().fetchTransactions(
-                              _filterRange, _filterStart, _filterEnd, text);
+                          locator<AstrologerNotifier>()
+                              .fetchAstrologers(text, _filterRange);
                         }
                       },
                       controller: _searchController,
@@ -131,37 +129,13 @@ class _HomePageState extends State<HomePage> {
                         },
                         onSelected: (value) {
                           logger.d('Selected $value');
-                          if (value == FilterRange.custom) {
-                            showDateRangePicker(
-                              context: context,
-                              firstDate: DateTime(2000),
-                              lastDate: DateTime(2050),
-                              currentDate: DateTime.now(),
-                            ).then((value2) {
-                              if (value2 != null) {
-                                logger.w(value2);
-                                setState(() {
-                                  _filterStart = value2.start;
-                                  _filterEnd = value2.end;
-                                  _filterRange = value;
-                                });
-                              }
-                              locator<TransactionNotifier>().fetchTransactions(
-                                  _filterRange,
-                                  _filterStart,
-                                  _filterEnd,
-                                  _searchController.text);
-                            });
-                          } else {
-                            setState(() {
-                              _filterRange = value;
-                            });
-                            locator<TransactionNotifier>().fetchTransactions(
-                                _filterRange,
-                                _filterStart,
-                                _filterEnd,
-                                _searchController.text);
-                          }
+                          setState(() {
+                            _filterRange = value;
+                          });
+                          locator<AstrologerNotifier>().fetchAstrologers(
+                            _searchController.text,
+                            _filterRange,
+                          );
                         },
                       )
                     : Container(),
@@ -194,8 +168,8 @@ class _HomePageState extends State<HomePage> {
                 if (value == 0) {
                   locator<ProductNotifier>().fetchProducts('');
                 } else {
-                  locator<TransactionNotifier>().fetchTransactions(
-                      _filterRange, _filterStart, _filterEnd, '');
+                  locator<AstrologerNotifier>()
+                      .fetchAstrologers('', _filterRange);
                 }
               },
               backgroundColor:

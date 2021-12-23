@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:astrotak/model/product_model.dart';
-import 'package:astrotak/model/transaction_model.dart';
 import 'package:astrotak/notifiers/product_notifier.dart';
-import 'package:astrotak/notifiers/transaction_notifier.dart';
 import 'package:astrotak/router/app_router.dart';
 import 'package:astrotak/services/locator.dart';
 import 'package:astrotak/widgets/bottom_sheet.dart';
@@ -155,11 +153,11 @@ class _UpdateStockSheetState extends State<UpdateStockSheet> {
                   if (_finalProduct.stockUnits != widget.product.stockUnits ||
                       _finalProduct.stockUnitType !=
                           widget.product.stockUnitType) {
-                    locator<TransactionNotifier>().addTransaction(Transaction(
-                        product: _finalProduct,
-                        time: DateTime.now(),
-                        stockUnits: double.parse(_quantityController.text),
-                        stockUnitsType: _quantityType));
+                    // locator<TransactionNotifier>().addTransaction(Transaction(
+                    //     product: _finalProduct,
+                    //     time: DateTime.now(),
+                    //     stockUnits: double.parse(_quantityController.text),
+                    //     stockUnitsType: _quantityType));
                   }
                 }
               : null,

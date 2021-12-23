@@ -1,7 +1,5 @@
-import 'package:astrotak/constants/demo_products.dart';
 import 'package:astrotak/model/astrologer_model.dart';
 import 'package:astrotak/model/filter_enum.dart';
-import 'package:astrotak/model/product_model.dart';
 import 'package:astrotak/services/logger.dart';
 import 'package:astrotak/utils/dio_client.dart';
 import 'package:rxdart/rxdart.dart';

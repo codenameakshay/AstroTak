@@ -14,4 +14,9 @@ class Skills {
 
   factory Skills.fromJson(Map<String, dynamic> json) => _$SkillsFromJson(json);
   Map<String, dynamic> toJson() => _$SkillsToJson(this);
+
+  @override
+  String toString() {
+    return name;
+  }
 }

@@ -14,4 +14,9 @@ class Languages {
   factory Languages.fromJson(Map<String, dynamic> json) =>
       _$LanguagesFromJson(json);
   Map<String, dynamic> toJson() => _$LanguagesToJson(this);
+
+  @override
+  String toString() {
+    return name;
+  }
 }

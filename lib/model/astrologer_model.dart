@@ -17,18 +17,18 @@ class Astrologer {
   String? lastName;
   String? aboutMe;
   String? profliePicUrl;
-  int? experience;
+  double? experience;
   List<Languages>? languages;
-  int? minimumCallDuration;
-  int? minimumCallDurationCharges;
-  int? additionalPerMinuteCharges;
+  double? minimumCallDuration;
+  double? minimumCallDurationCharges;
+  double? additionalPerMinuteCharges;
   bool? isAvailable;
   double? rating;
   List<Skills>? skills;
   bool? isOnCall;
-  int? freeMinutes;
-  int? additionalMinute;
-  List<Images>? images;
+  double? freeMinutes;
+  double? additionalMinute;
+  Map<String, Images>? images;
   Availability? availability;
 
   Astrologer(
@@ -56,4 +56,9 @@ class Astrologer {
   factory Astrologer.fromJson(Map<String, dynamic> json) =>
       _$AstrologerFromJson(json);
   Map<String, dynamic> toJson() => _$AstrologerToJson(this);
+
+  @override
+  String toString() {
+    return "$firstName $lastName";
+  }
 }

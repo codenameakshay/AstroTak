@@ -1,8 +1,8 @@
+import 'package:astrotak/pages/talk_to_astro_page.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:astrotak/model/product_model.dart';
 import 'package:astrotak/pages/home_page.dart';
-import 'package:astrotak/pages/inventory_page.dart';
 import 'package:astrotak/pages/loading_page.dart';
 import 'package:astrotak/pages/new_product_page.dart';
 import 'package:astrotak/pages/products_page.dart';
@@ -33,7 +33,7 @@ part 'app_router.gr.dart';
           initial: true,
         ),
         MaterialRoute(
-          page: InventoryPage,
+          page: AstroPage,
         ),
       ],
     ),

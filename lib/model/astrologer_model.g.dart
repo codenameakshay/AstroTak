@@ -14,24 +14,26 @@ Astrologer _$AstrologerFromJson(Map<String, dynamic> json) => Astrologer(
       lastName: json['lastName'] as String?,
       aboutMe: json['aboutMe'] as String?,
       profliePicUrl: json['profliePicUrl'] as String?,
-      experience: json['experience'] as int?,
+      experience: (json['experience'] as num?)?.toDouble(),
       languages: (json['languages'] as List<dynamic>?)
           ?.map((e) => Languages.fromJson(e as Map<String, dynamic>))
           .toList(),
-      minimumCallDuration: json['minimumCallDuration'] as int?,
-      minimumCallDurationCharges: json['minimumCallDurationCharges'] as int?,
-      additionalPerMinuteCharges: json['additionalPerMinuteCharges'] as int?,
+      minimumCallDuration: (json['minimumCallDuration'] as num?)?.toDouble(),
+      minimumCallDurationCharges:
+          (json['minimumCallDurationCharges'] as num?)?.toDouble(),
+      additionalPerMinuteCharges:
+          (json['additionalPerMinuteCharges'] as num?)?.toDouble(),
       isAvailable: json['isAvailable'] as bool?,
       rating: (json['rating'] as num?)?.toDouble(),
       skills: (json['skills'] as List<dynamic>?)
           ?.map((e) => Skills.fromJson(e as Map<String, dynamic>))
           .toList(),
       isOnCall: json['isOnCall'] as bool?,
-      freeMinutes: json['freeMinutes'] as int?,
-      additionalMinute: json['additionalMinute'] as int?,
-      images: (json['images'] as List<dynamic>?)
-          ?.map((e) => Images.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      freeMinutes: (json['freeMinutes'] as num?)?.toDouble(),
+      additionalMinute: (json['additionalMinute'] as num?)?.toDouble(),
+      images: (json['images'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, Images.fromJson(e as Map<String, dynamic>)),
+      ),
       availability: json['availability'] == null
           ? null
           : Availability.fromJson(json['availability'] as Map<String, dynamic>),
@@ -57,6 +59,6 @@ Map<String, dynamic> _$AstrologerToJson(Astrologer instance) =>
       'isOnCall': instance.isOnCall,
       'freeMinutes': instance.freeMinutes,
       'additionalMinute': instance.additionalMinute,
-      'images': instance.images?.map((e) => e.toJson()).toList(),
+      'images': instance.images?.map((k, e) => MapEntry(k, e.toJson())),
       'availability': instance.availability?.toJson(),
     };

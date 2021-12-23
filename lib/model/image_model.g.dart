@@ -8,7 +8,7 @@ part of 'image_model.dart';
 
 Images _$ImagesFromJson(Map<String, dynamic> json) => Images(
       imageUrl: json['imageUrl'] as String?,
-      id: json['id'] as String?,
+      id: json['id'] as int?,
     );
 
 Map<String, dynamic> _$ImagesToJson(Images instance) => <String, dynamic>{

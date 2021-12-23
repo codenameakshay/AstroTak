@@ -7,7 +7,7 @@ part 'image_model.g.dart';
 )
 class Images {
   String? imageUrl;
-  String? id;
+  int? id;
 
   Images({this.imageUrl, this.id});
 

@@ -49,12 +49,12 @@ class _$AppRouter extends RootStackRouter {
           routeData: routeData,
           child: ProductsPage(key: args.key, controller: args.controller));
     },
-    InventoryRoute.name: (routeData) {
-      final args = routeData.argsAs<InventoryRouteArgs>(
-          orElse: () => const InventoryRouteArgs());
+    AstroRoute.name: (routeData) {
+      final args = routeData.argsAs<AstroRouteArgs>(
+          orElse: () => const AstroRouteArgs());
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: InventoryPage(key: args.key, controller: args.controller));
+          child: AstroPage(key: args.key, controller: args.controller));
     }
   };
 
@@ -66,8 +66,8 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(NewProductRoute.name, path: '/'),
         RouteConfig(HomeRoute.name, path: '/home-page', children: [
           RouteConfig(ProductsRoute.name, path: '', parent: HomeRoute.name),
-          RouteConfig(InventoryRoute.name,
-              path: 'inventory-page', parent: HomeRoute.name)
+          RouteConfig(AstroRoute.name,
+              path: 'astro-page', parent: HomeRoute.name)
         ])
       ];
 }
@@ -140,18 +140,18 @@ class ProductsRouteArgs {
 }
 
 /// generated route for
-/// [InventoryPage]
-class InventoryRoute extends PageRouteInfo<InventoryRouteArgs> {
-  InventoryRoute({Key? key, ScrollController? controller})
-      : super(InventoryRoute.name,
-            path: 'inventory-page',
-            args: InventoryRouteArgs(key: key, controller: controller));
+/// [AstroPage]
+class AstroRoute extends PageRouteInfo<AstroRouteArgs> {
+  AstroRoute({Key? key, ScrollController? controller})
+      : super(AstroRoute.name,
+            path: 'astro-page',
+            args: AstroRouteArgs(key: key, controller: controller));
 
-  static const String name = 'InventoryRoute';
+  static const String name = 'AstroRoute';
 }
 
-class InventoryRouteArgs {
-  const InventoryRouteArgs({this.key, this.controller});
+class AstroRouteArgs {
+  const AstroRouteArgs({this.key, this.controller});
 
   final Key? key;
 
@@ -159,6 +159,6 @@ class InventoryRouteArgs {
 
   @override
   String toString() {
-    return 'InventoryRouteArgs{key: $key, controller: $controller}';
+    return 'AstroRouteArgs{key: $key, controller: $controller}';
   }
 }
