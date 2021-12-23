@@ -11,31 +11,31 @@ class Panchang {
   String sunset;
   String moonrise;
   String moonset;
-  String vedicSunrise;
-  String vedicSunset;
-  Tithi tithi;
-  Tithi nakshatra;
-  Tithi yog;
-  Tithi karan;
-  HinduMaah hinduMaah;
-  String paksha;
-  String ritu;
-  String sunSign;
-  String moonSign;
-  String ayana;
-  String panchangYog;
-  int vikramSamvat;
-  int shakaSamvat;
-  String vkramSamvatName;
-  String shakaSamvatName;
-  String dishaShool;
-  String dishaShoolRemedies;
-  NakShool nakShool;
-  String moonNivas;
-  AbhijitMuhurta abhijitMuhurta;
-  AbhijitMuhurta rahukaal;
-  AbhijitMuhurta guliKaal;
-  AbhijitMuhurta yamghantKaal;
+  String? vedicSunrise;
+  String? vedicSunset;
+  Tithi? tithi;
+  Tithi? nakshatra;
+  Tithi? yog;
+  Tithi? karan;
+  HinduMaah? hinduMaah;
+  String? paksha;
+  String? ritu;
+  String? sunSign;
+  String? moonSign;
+  String? ayana;
+  String? panchangYog;
+  double? vikramSamvat;
+  double? shakaSamvat;
+  String? vkramSamvatName;
+  String? shakaSamvatName;
+  String? dishaShool;
+  String? dishaShoolRemedies;
+  NakShool? nakShool;
+  String? moonNivas;
+  AbhijitMuhurta? abhijitMuhurta;
+  AbhijitMuhurta? rahukaal;
+  AbhijitMuhurta? guliKaal;
+  AbhijitMuhurta? yamghantKaal;
 
   Panchang(
       {required this.day,
@@ -43,31 +43,31 @@ class Panchang {
       required this.sunset,
       required this.moonrise,
       required this.moonset,
-      required this.vedicSunrise,
-      required this.vedicSunset,
-      required this.tithi,
-      required this.nakshatra,
-      required this.yog,
-      required this.karan,
-      required this.hinduMaah,
-      required this.paksha,
-      required this.ritu,
-      required this.sunSign,
-      required this.moonSign,
-      required this.ayana,
-      required this.panchangYog,
-      required this.vikramSamvat,
-      required this.shakaSamvat,
-      required this.vkramSamvatName,
-      required this.shakaSamvatName,
-      required this.dishaShool,
-      required this.dishaShoolRemedies,
-      required this.nakShool,
-      required this.moonNivas,
-      required this.abhijitMuhurta,
-      required this.rahukaal,
-      required this.guliKaal,
-      required this.yamghantKaal});
+      this.vedicSunrise,
+      this.vedicSunset,
+      this.tithi,
+      this.nakshatra,
+      this.yog,
+      this.karan,
+      this.hinduMaah,
+      this.paksha,
+      this.ritu,
+      this.sunSign,
+      this.moonSign,
+      this.ayana,
+      this.panchangYog,
+      this.vikramSamvat,
+      this.shakaSamvat,
+      this.vkramSamvatName,
+      this.shakaSamvatName,
+      this.dishaShool,
+      this.dishaShoolRemedies,
+      this.nakShool,
+      this.moonNivas,
+      this.abhijitMuhurta,
+      this.rahukaal,
+      this.guliKaal,
+      this.yamghantKaal});
 
   factory Panchang.fromJson(Map<String, dynamic> json) =>
       _$PanchangFromJson(json);
@@ -78,12 +78,11 @@ class Panchang {
   explicitToJson: true,
 )
 class Tithi {
-  Map<String, dynamic> details;
-  EndTime endTime;
-  int endTimeMs;
+  Map<String, dynamic>? details;
+  EndTime? endTime;
+  int? endTimeMs;
 
-  Tithi(
-      {required this.details, required this.endTime, required this.endTimeMs});
+  Tithi({this.details, this.endTime, this.endTimeMs});
 
   factory Tithi.fromJson(Map<String, dynamic> json) => _$TithiFromJson(json);
   Map<String, dynamic> toJson() => _$TithiToJson(this);

@@ -12,35 +12,53 @@ Panchang _$PanchangFromJson(Map<String, dynamic> json) => Panchang(
       sunset: json['sunset'] as String,
       moonrise: json['moonrise'] as String,
       moonset: json['moonset'] as String,
-      vedicSunrise: json['vedicSunrise'] as String,
-      vedicSunset: json['vedicSunset'] as String,
-      tithi: Tithi.fromJson(json['tithi'] as Map<String, dynamic>),
-      nakshatra: Tithi.fromJson(json['nakshatra'] as Map<String, dynamic>),
-      yog: Tithi.fromJson(json['yog'] as Map<String, dynamic>),
-      karan: Tithi.fromJson(json['karan'] as Map<String, dynamic>),
-      hinduMaah: HinduMaah.fromJson(json['hinduMaah'] as Map<String, dynamic>),
-      paksha: json['paksha'] as String,
-      ritu: json['ritu'] as String,
-      sunSign: json['sunSign'] as String,
-      moonSign: json['moonSign'] as String,
-      ayana: json['ayana'] as String,
-      panchangYog: json['panchangYog'] as String,
-      vikramSamvat: json['vikramSamvat'] as int,
-      shakaSamvat: json['shakaSamvat'] as int,
-      vkramSamvatName: json['vkramSamvatName'] as String,
-      shakaSamvatName: json['shakaSamvatName'] as String,
-      dishaShool: json['dishaShool'] as String,
-      dishaShoolRemedies: json['dishaShoolRemedies'] as String,
-      nakShool: NakShool.fromJson(json['nakShool'] as Map<String, dynamic>),
-      moonNivas: json['moonNivas'] as String,
-      abhijitMuhurta: AbhijitMuhurta.fromJson(
-          json['abhijitMuhurta'] as Map<String, dynamic>),
-      rahukaal:
-          AbhijitMuhurta.fromJson(json['rahukaal'] as Map<String, dynamic>),
-      guliKaal:
-          AbhijitMuhurta.fromJson(json['guliKaal'] as Map<String, dynamic>),
-      yamghantKaal:
-          AbhijitMuhurta.fromJson(json['yamghantKaal'] as Map<String, dynamic>),
+      vedicSunrise: json['vedicSunrise'] as String?,
+      vedicSunset: json['vedicSunset'] as String?,
+      tithi: json['tithi'] == null
+          ? null
+          : Tithi.fromJson(json['tithi'] as Map<String, dynamic>),
+      nakshatra: json['nakshatra'] == null
+          ? null
+          : Tithi.fromJson(json['nakshatra'] as Map<String, dynamic>),
+      yog: json['yog'] == null
+          ? null
+          : Tithi.fromJson(json['yog'] as Map<String, dynamic>),
+      karan: json['karan'] == null
+          ? null
+          : Tithi.fromJson(json['karan'] as Map<String, dynamic>),
+      hinduMaah: json['hinduMaah'] == null
+          ? null
+          : HinduMaah.fromJson(json['hinduMaah'] as Map<String, dynamic>),
+      paksha: json['paksha'] as String?,
+      ritu: json['ritu'] as String?,
+      sunSign: json['sunSign'] as String?,
+      moonSign: json['moonSign'] as String?,
+      ayana: json['ayana'] as String?,
+      panchangYog: json['panchangYog'] as String?,
+      vikramSamvat: (json['vikramSamvat'] as num?)?.toDouble(),
+      shakaSamvat: (json['shakaSamvat'] as num?)?.toDouble(),
+      vkramSamvatName: json['vkramSamvatName'] as String?,
+      shakaSamvatName: json['shakaSamvatName'] as String?,
+      dishaShool: json['dishaShool'] as String?,
+      dishaShoolRemedies: json['dishaShoolRemedies'] as String?,
+      nakShool: json['nakShool'] == null
+          ? null
+          : NakShool.fromJson(json['nakShool'] as Map<String, dynamic>),
+      moonNivas: json['moonNivas'] as String?,
+      abhijitMuhurta: json['abhijitMuhurta'] == null
+          ? null
+          : AbhijitMuhurta.fromJson(
+              json['abhijitMuhurta'] as Map<String, dynamic>),
+      rahukaal: json['rahukaal'] == null
+          ? null
+          : AbhijitMuhurta.fromJson(json['rahukaal'] as Map<String, dynamic>),
+      guliKaal: json['guliKaal'] == null
+          ? null
+          : AbhijitMuhurta.fromJson(json['guliKaal'] as Map<String, dynamic>),
+      yamghantKaal: json['yamghantKaal'] == null
+          ? null
+          : AbhijitMuhurta.fromJson(
+              json['yamghantKaal'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PanchangToJson(Panchang instance) => <String, dynamic>{
@@ -51,11 +69,11 @@ Map<String, dynamic> _$PanchangToJson(Panchang instance) => <String, dynamic>{
       'moonset': instance.moonset,
       'vedicSunrise': instance.vedicSunrise,
       'vedicSunset': instance.vedicSunset,
-      'tithi': instance.tithi.toJson(),
-      'nakshatra': instance.nakshatra.toJson(),
-      'yog': instance.yog.toJson(),
-      'karan': instance.karan.toJson(),
-      'hinduMaah': instance.hinduMaah.toJson(),
+      'tithi': instance.tithi?.toJson(),
+      'nakshatra': instance.nakshatra?.toJson(),
+      'yog': instance.yog?.toJson(),
+      'karan': instance.karan?.toJson(),
+      'hinduMaah': instance.hinduMaah?.toJson(),
       'paksha': instance.paksha,
       'ritu': instance.ritu,
       'sunSign': instance.sunSign,
@@ -68,23 +86,25 @@ Map<String, dynamic> _$PanchangToJson(Panchang instance) => <String, dynamic>{
       'shakaSamvatName': instance.shakaSamvatName,
       'dishaShool': instance.dishaShool,
       'dishaShoolRemedies': instance.dishaShoolRemedies,
-      'nakShool': instance.nakShool.toJson(),
+      'nakShool': instance.nakShool?.toJson(),
       'moonNivas': instance.moonNivas,
-      'abhijitMuhurta': instance.abhijitMuhurta.toJson(),
-      'rahukaal': instance.rahukaal.toJson(),
-      'guliKaal': instance.guliKaal.toJson(),
-      'yamghantKaal': instance.yamghantKaal.toJson(),
+      'abhijitMuhurta': instance.abhijitMuhurta?.toJson(),
+      'rahukaal': instance.rahukaal?.toJson(),
+      'guliKaal': instance.guliKaal?.toJson(),
+      'yamghantKaal': instance.yamghantKaal?.toJson(),
     };
 
 Tithi _$TithiFromJson(Map<String, dynamic> json) => Tithi(
-      details: json['details'] as Map<String, dynamic>,
-      endTime: EndTime.fromJson(json['endTime'] as Map<String, dynamic>),
-      endTimeMs: json['endTimeMs'] as int,
+      details: json['details'] as Map<String, dynamic>?,
+      endTime: json['endTime'] == null
+          ? null
+          : EndTime.fromJson(json['endTime'] as Map<String, dynamic>),
+      endTimeMs: json['endTimeMs'] as int?,
     );
 
 Map<String, dynamic> _$TithiToJson(Tithi instance) => <String, dynamic>{
       'details': instance.details,
-      'endTime': instance.endTime.toJson(),
+      'endTime': instance.endTime?.toJson(),
       'endTimeMs': instance.endTimeMs,
     };
 

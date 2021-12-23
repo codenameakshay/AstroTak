@@ -90,7 +90,8 @@ class DioClient {
       final jsonReq = JSONRequest.fromJson(response.data);
 
       retrievedPanchang = Panchang.fromJson(jsonReq.data);
-    } catch (e) {
+    } catch (e, s) {
+      logger.e(e, e, s);
       logger.e('Error creating panchang: $e');
     }
 

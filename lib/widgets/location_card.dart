@@ -73,6 +73,7 @@ class _LocationCardState extends State<LocationCard> {
                     textFieldConfiguration: TextFieldConfiguration(
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
+                        hintText: 'Search for a place',
                       ),
                       keyboardType: TextInputType.text,
                       controller: _locationController,

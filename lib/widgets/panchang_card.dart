@@ -1,4 +1,5 @@
 import 'package:astrotak/model/panchang_model.dart';
+import 'package:astrotak/services/logger.dart';
 import 'package:flutter/material.dart';
 
 class PanchangCard extends StatefulWidget {
@@ -18,6 +19,7 @@ class _PanchangCardState extends State<PanchangCard> {
 
   @override
   Widget build(BuildContext context) {
+    logger.d(widget.panchang.toString());
     return Card(
       margin: const EdgeInsets.all(16),
       child: AnimatedContainer(
@@ -41,7 +43,7 @@ class _PanchangCardState extends State<PanchangCard> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  "${widget.panchang?.day} (${widget.panchang?.day} ${widget.panchang?.day})",
+                                  "${widget.panchang?.sunrise} (${widget.panchang?.day} ${widget.panchang?.day})",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context).textTheme.headline6,
