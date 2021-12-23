@@ -1,7 +1,6 @@
 import 'package:astrotak/model/astrologer_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class AstroCard extends StatefulWidget {
   const AstroCard({
@@ -17,7 +16,6 @@ class AstroCard extends StatefulWidget {
 
 class _AstroCardState extends State<AstroCard> {
   bool isOpen = false;
-  final DateFormat formatter = DateFormat('E, MMMM d, yyyy\nh:mm a');
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class _AstroCardState extends State<AstroCard> {
           : Theme.of(context).disabledColor,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        height: isOpen ? 250 : 150,
+        height: isOpen ? 300 : 150,
         child: Center(
           child: Column(
             children: [
@@ -48,9 +46,10 @@ class _AstroCardState extends State<AstroCard> {
                                 child: CachedNetworkImage(
                                   imageUrl: widget.astrologer.images?.values
                                           .firstWhere((element) =>
-                                              element.imageUrl != null)
+                                              element.imageUrl != null &&
+                                              element.imageUrl != "")
                                           .imageUrl ??
-                                      "",
+                                      "https://via.placeholder.com/150",
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -68,7 +67,7 @@ class _AstroCardState extends State<AstroCard> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: Text(
-                                    "${widget.astrologer.experience} years"
+                                    "${widget.astrologer.experience?.toInt() ?? 0} years"
                                         .toUpperCase(),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -76,6 +75,20 @@ class _AstroCardState extends State<AstroCard> {
                                     style: Theme.of(context).textTheme.overline,
                                   ),
                                 ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 24,
+                            right: 24,
+                            child: Container(
+                              height: 8,
+                              width: 8,
+                              decoration: BoxDecoration(
+                                color: widget.astrologer.isAvailable == true
+                                    ? Colors.lightGreenAccent
+                                    : Colors.redAccent,
+                                shape: BoxShape.circle,
                               ),
                             ),
                           ),
@@ -93,7 +106,10 @@ class _AstroCardState extends State<AstroCard> {
                                   "${widget.astrologer.firstName} ${widget.astrologer.lastName}",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context).textTheme.headline6,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6
+                                      ?.copyWith(fontSize: 18),
                                 ),
                               ),
                               Padding(
@@ -101,12 +117,34 @@ class _AstroCardState extends State<AstroCard> {
                                   horizontal: 8,
                                   vertical: 0,
                                 ),
-                                child: Text(
-                                  widget.astrologer.skills?.join(', ') ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: true,
-                                  style: Theme.of(context).textTheme.overline,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Icon(
+                                      Icons.handyman,
+                                      size: 16,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        widget.astrologer.skills?.join(', ') ??
+                                            '',
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: true,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .overline
+                                            ?.copyWith(
+                                                color: Theme.of(context)
+                                                    .textTheme
+                                                    .overline
+                                                    ?.color
+                                                    ?.withOpacity(0.7)),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               const Spacer(),
@@ -115,12 +153,35 @@ class _AstroCardState extends State<AstroCard> {
                                   horizontal: 8,
                                   vertical: 0,
                                 ),
-                                child: Text(
-                                  widget.astrologer.languages?.join(', ') ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: true,
-                                  style: Theme.of(context).textTheme.overline,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    const Icon(
+                                      Icons.translate,
+                                      size: 16,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        widget.astrologer.languages
+                                                ?.join(', ') ??
+                                            '',
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: true,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .overline
+                                            ?.copyWith(
+                                                color: Theme.of(context)
+                                                    .textTheme
+                                                    .overline
+                                                    ?.color
+                                                    ?.withOpacity(0.7)),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               const Spacer(),
@@ -129,12 +190,17 @@ class _AstroCardState extends State<AstroCard> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      "₹${(widget.astrologer.minimumCallDurationCharges ?? 0) / (widget.astrologer.minimumCallDuration ?? 1)}/min",
+                                      "₹${(widget.astrologer.minimumCallDurationCharges ?? 0) ~/ (widget.astrologer.minimumCallDuration ?? 1)}/min",
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.bodyText1,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          ?.copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary),
                                     ),
                                     const Spacer(),
                                     AnimatedRotation(
@@ -157,7 +223,7 @@ class _AstroCardState extends State<AstroCard> {
               ),
               AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                height: isOpen ? 100 : 0,
+                height: isOpen ? 70 : 0,
                 child: Row(
                   children: [
                     Padding(
@@ -170,18 +236,14 @@ class _AstroCardState extends State<AstroCard> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Available:",
-                                maxLines: 1,
+                                widget.astrologer.availability?.slot == null
+                                    ? "Slot Time:\nNot available"
+                                    : "Slot Time:\n${widget.astrologer.availability?.slot.from}${widget.astrologer.availability?.slot.fromFormat} - ${widget.astrologer.availability?.slot.to}${widget.astrologer.availability?.slot.toFormat}",
+                                maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
                                 softWrap: true,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              Text(
-                                "${widget.astrologer.availability?.days.join(', ')}",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                softWrap: true,
-                                style: Theme.of(context).textTheme.bodyText1,
+                                style: Theme.of(context).textTheme.overline,
                               ),
                             ],
                           ),
@@ -199,12 +261,78 @@ class _AstroCardState extends State<AstroCard> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "Slot Time:\n${widget.astrologer.availability?.slot.from}${widget.astrologer.availability?.slot.fromFormat} - ${widget.astrologer.availability?.slot.to}${widget.astrologer.availability?.slot.toFormat}",
-                                  maxLines: 3,
+                                  "Available:",
+                                  maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.center,
+                                  softWrap: true,
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
+                                Text(
+                                  widget.astrologer.availability?.days
+                                          .join(', ') ??
+                                      'Data not available',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   softWrap: true,
                                   style: Theme.of(context).textTheme.overline,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                height: isOpen ? 80 : 0,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Card(
+                          color: widget.astrologer.isAvailable == true
+                              ? Theme.of(context).colorScheme.secondary
+                              : Theme.of(context).colorScheme.error,
+                          child: SizedBox(
+                            height: 100 - 16 - 8,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  widget.astrologer.isAvailable == true
+                                      ? Icons.phone
+                                      : Icons.phone_disabled,
+                                  color: widget.astrologer.isAvailable == true
+                                      ? Theme.of(context)
+                                          .colorScheme
+                                          .onSecondary
+                                      : Theme.of(context).colorScheme.onError,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  widget.astrologer.isAvailable == true
+                                      ? "Talk on Call"
+                                      : "Not Available",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: true,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      ?.copyWith(
+                                        color: widget.astrologer.isAvailable ==
+                                                true
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .onSecondary
+                                            : Theme.of(context)
+                                                .colorScheme
+                                                .onError,
+                                      ),
                                 ),
                               ],
                             ),
