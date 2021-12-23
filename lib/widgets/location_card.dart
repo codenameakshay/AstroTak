@@ -1,6 +1,9 @@
+import 'package:astrotak/model/place_model.dart';
+import 'package:astrotak/notifiers/panchang_notifier.dart';
+import 'package:astrotak/services/locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:intl/intl.dart';
-import 'package:astrotak/model/product_model.dart';
 
 class LocationCard extends StatefulWidget {
   const LocationCard({Key? key}) : super(key: key);
@@ -11,25 +14,22 @@ class LocationCard extends StatefulWidget {
 
 class _LocationCardState extends State<LocationCard> {
   late DateTime createdAt;
-  final DateFormat formatter = DateFormat('E, MMMM d, yyyy\nh:mm a');
-  bool valid = false;
-  late final TextEditingController _quantityController;
-  final RegExp _quantityRegex =
-      RegExp("^[0-9]+\$", multiLine: false, dotAll: true);
-  late QuantityType _quantityType;
+  final DateFormat formatter = DateFormat('E, MMMM d, yyyy');
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late final TextEditingController _locationController;
+  late Place _place;
+
   @override
   void initState() {
     super.initState();
     createdAt = DateTime.now();
-    _quantityController = TextEditingController();
-    _quantityType = QuantityType.bags;
-    valid = _quantityController.text.isNotEmpty;
+    _locationController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.8,
+    return Card(
+      margin: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -62,52 +62,92 @@ class _LocationCardState extends State<LocationCard> {
                 });
               },
               trailing: const Icon(Icons.calendar_today)),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    onChanged: (text) {
-                      if (text != "" && _quantityRegex.hasMatch(text)) {
-                        setState(() {
-                          valid = true;
-                        });
-                      } else {
-                        setState(() {
-                          valid = false;
-                        });
+          Form(
+            key: _formKey,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+              child: Column(
+                children: [
+                  TypeAheadFormField<Place>(
+                    textFieldConfiguration: TextFieldConfiguration(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                      ),
+                      keyboardType: TextInputType.text,
+                      controller: _locationController,
+                      textCapitalization: TextCapitalization.sentences,
+                    ),
+                    suggestionsCallback: (query) async {
+                      final places =
+                          locator<PanchangNotifier>().fetchLocation(query);
+                      return places;
+                    },
+                    itemBuilder: (context, suggestion) {
+                      return ListTile(
+                        title: Text(suggestion.placeName),
+                      );
+                    },
+                    transitionBuilder: (context, suggestionsBox, controller) {
+                      return suggestionsBox;
+                    },
+                    onSuggestionSelected: (suggestion) {
+                      _locationController.text = suggestion.placeName;
+                      _place = suggestion;
+                      locator<PanchangNotifier>()
+                          .fetchPanchang(createdAt, suggestion);
+                    },
+                    validator: (value) {
+                      if (value?.isEmpty == true) {
+                        return 'Please select a city';
                       }
                     },
-                    controller: _quantityController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.number,
-                    textCapitalization: TextCapitalization.sentences,
-                    maxLength: 4,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 0, 0, 8),
-                  child: DropdownButton<QuantityType>(
-                    items: QuantityType.values.map((e) {
-                      return DropdownMenuItem(
-                        value: e,
-                        child: Text(e.toString().split('.').last),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _quantityType = value!;
-                      });
+                  GestureDetector(
+                    onTap: () {
+                      if (_formKey.currentState?.validate() == true) {
+                        _formKey.currentState?.save();
+                        locator<PanchangNotifier>()
+                            .fetchPanchang(createdAt, _place);
+                      }
                     },
-                    isDense: true,
-                    value: _quantityType,
-                    isExpanded: false,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Card(
+                        color: Theme.of(context).colorScheme.secondary,
+                        child: SizedBox(
+                          height: 68,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.search,
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                "Get Panchang",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondary,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

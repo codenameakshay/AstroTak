@@ -67,15 +67,18 @@ class PanchangService {
     }
   }
 
-  Future<void> fetchLocation(String query) async {
+  Future<Iterable<Place>> fetchLocation(String query) async {
     locationState = LocationState.loading;
+    Iterable<Place> places = [];
     try {
-      final List<Place>? places = await dioClient.getPlaces(query: query);
-      if (places != null) _locationSubject.add(places);
+      places = await dioClient.getPlaces(query: query);
+      _locationSubject.add(places.toList());
       locationState = LocationState.ready;
+      return places;
     } catch (e, s) {
       logger.e(e, e, s);
       locationState = LocationState.error;
+      return places;
     }
   }
 }

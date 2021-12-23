@@ -15,7 +15,7 @@ class DioClient {
     try {
       Response astroData = await _dio.get(_baseUrl + '/agent/all');
 
-      logger.d('User Info: ${astroData.data}');
+      // logger.d('Astrologer Info: ${astroData.data}');
 
       final jsonReq = JSONRequest.fromJson(astroData.data);
 
@@ -39,19 +39,21 @@ class DioClient {
     return astrologers;
   }
 
-  Future<List<Place>?> getPlaces({required String query}) async {
-    List<Place>? places;
+  Future<Iterable<Place>> getPlaces({required String query}) async {
+    Iterable<Place> places = const Iterable.empty();
     try {
-      Response placeData =
-          await _dio.get(_baseUrl + '/location/place?inputPlace=$query');
+      if (query != "") {
+        Response placeData =
+            await _dio.get(_baseUrl + '/location/place?inputPlace=$query');
 
-      logger.d('User Info: ${placeData.data}');
+        logger.d('User Info: ${placeData.data}');
 
-      final jsonReq = JSONRequest.fromJson(placeData.data);
+        final jsonReq = JSONRequest.fromJson(placeData.data);
 
-      places = jsonReq.data.map<Place>((astro) {
-        return Place.fromJson(astro);
-      }).toList();
+        places = jsonReq.data.map<Place>((astro) {
+          return Place.fromJson(astro);
+        });
+      }
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
@@ -84,7 +86,7 @@ class DioClient {
         },
       );
 
-      logger.d('Panchang created: ${response.data}');
+      // logger.d('Panchang created: ${response.data}');
       final jsonReq = JSONRequest.fromJson(response.data);
 
       retrievedPanchang = Panchang.fromJson(jsonReq.data);

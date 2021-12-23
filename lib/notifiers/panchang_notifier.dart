@@ -39,7 +39,7 @@ class PanchangNotifier extends ChangeNotifier {
     await _panchangService.fetchPanchang(dateTime, place);
   }
 
-  Future<void> fetchLocation(String query) async {
-    await _panchangService.fetchLocation(query);
+  Future<Iterable<Place>> fetchLocation(String query) async {
+    return await _panchangService.fetchLocation(query);
   }
 }
