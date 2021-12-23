@@ -58,21 +58,21 @@ class AstrologerService {
       switch (filterRange) {
         case FilterRange.all:
           break;
-        case FilterRange.experienceHtL:
+        case FilterRange.experienceLtH:
           tempAstrologers
               .sort((a, b) => b.experience?.compareTo(a.experience ?? 0) ?? 0);
           break;
-        case FilterRange.experienceLtH:
+        case FilterRange.experienceHtL:
           tempAstrologers
               .sort((a, b) => a.experience?.compareTo(b.experience ?? 0) ?? 0);
           break;
-        case FilterRange.priceHtL:
+        case FilterRange.priceLtH:
           tempAstrologers.sort((a, b) => ((b.minimumCallDurationCharges ?? 1) /
                   (b.minimumCallDuration ?? 1))
               .compareTo((a.minimumCallDurationCharges ?? 1) /
                   (a.minimumCallDuration ?? 1)));
           break;
-        case FilterRange.priceLtH:
+        case FilterRange.priceHtL:
           tempAstrologers.sort((a, b) => ((a.minimumCallDurationCharges ?? 1) /
                   (a.minimumCallDuration ?? 1))
               .compareTo((b.minimumCallDurationCharges ?? 1) /
