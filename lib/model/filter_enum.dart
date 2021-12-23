@@ -1,9 +1,9 @@
 enum FilterRange {
   all,
-  pastWeek,
-  pastMonth,
-  pastYear,
-  custom,
+  experienceHtL,
+  experienceLtH,
+  priceHtL,
+  priceLtH,
 }
 
 extension FilterRangeExtension on FilterRange {
@@ -11,14 +11,14 @@ extension FilterRangeExtension on FilterRange {
     switch (this) {
       case FilterRange.all:
         return 'All';
-      case FilterRange.pastWeek:
-        return 'Past Week';
-      case FilterRange.pastMonth:
-        return 'Past Month';
-      case FilterRange.pastYear:
-        return 'Past Year';
-      case FilterRange.custom:
-        return 'Custom';
+      case FilterRange.experienceHtL:
+        return 'Experience - High to Low';
+      case FilterRange.experienceLtH:
+        return 'Experience - Low to High';
+      case FilterRange.priceHtL:
+        return 'Price - High to Low';
+      case FilterRange.priceLtH:
+        return 'Price - Low to High';
       default:
         return 'All';
     }
